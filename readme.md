@@ -1,4 +1,4 @@
-This repo is clone from https://github.com/sequelpro/sequelpro. Fix some compile error and UI dislocation.
+This repo is clone from https://github.com/sequelpro/sequelpro. For Xcode 14.3, fix some compile error. For macOS 13, fix some UI dislocation.
 
 
 Sequel Pro <img alt="Logo" src="https://sequelpro.com/images/logo.png" align="right" height="50">
