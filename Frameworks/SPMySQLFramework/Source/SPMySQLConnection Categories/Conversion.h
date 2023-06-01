@@ -48,7 +48,9 @@
 static inline const char* _cStringForStringWithEncoding(NSString* aString, NSStringEncoding anEncoding, NSUInteger *cStringLengthPointer) 
 {
 	static Class cachedClass;
-	static IMP cachedMethodPointer;
+    
+    static const char * (*cachedMethodPointer)(id, SEL, NSString*, NSStringEncoding, NSUInteger *);
+//	static IMP cachedMethodPointer;
 	static SEL cachedSelector;
 
 	if (!cachedClass) cachedClass = [SPMySQLConnection class];

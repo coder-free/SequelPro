@@ -527,7 +527,8 @@ typedef NSRange (*RangeOfLineIMP)(id object, SEL selector, NSRange range);
 		anIndex = 0;
 
 		// Cache loop methods for speed
-		IMP rangeOfLineIMP = [textString methodForSelector:rangeOfLineSel];
+		void (*rangeOfLineIMP)(id, SEL, NSUInteger *, NSUInteger *, NSUInteger *, NSRange);
+		rangeOfLineIMP = [textString methodForSelector:rangeOfLineSel];
 		addObjectIMP = [lineIndices methodForSelector:addObjectSel];
 		
 		do

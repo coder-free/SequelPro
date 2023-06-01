@@ -495,7 +495,8 @@ static SPQueryController *sharedQueryController = nil;
 	}
 
 	// Cache frequently used selector, avoiding dynamic binding overhead
-	IMP messageMatchesFilters = [self methodForSelector:@selector(_messageMatchesCurrentFilters:)];
+	BOOL (*messageMatchesFilters)(id, SEL, NSString *);
+	messageMatchesFilters = [self methodForSelector:@selector(_messageMatchesCurrentFilters:)];
 
 	// Loop through all the messages in the full set to determine which should be
 	// added to the filtered set.
@@ -638,9 +639,18 @@ static SPQueryController *sharedQueryController = nil;
 		[messagesFilteredSet addObject:[messagesFullSet lastObject]];
 		[self performSelectorOnMainThread:@selector(_allowFilterClearOrSave:) withObject:@YES waitUntilDone:NO];
 	}
+	
+	__block BOOL isVisible = NO;
+	if ([NSThread currentThread].isMainThread) {
+		isVisible = [[self window] isVisible];
+	} else {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			isVisible = [[self window] isVisible];
+		});
+	}
 
 	// Reload the table and scroll to the new message if it's visible (for speed)
-	if (allowConsoleUpdate && [[self window] isVisible]) {
+	if (allowConsoleUpdate && isVisible) {
 		[self performSelectorOnMainThread:@selector(updateEntries) withObject:nil waitUntilDone:NO];
 	}
 

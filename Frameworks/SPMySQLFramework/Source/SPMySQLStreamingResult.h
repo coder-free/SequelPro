@@ -39,8 +39,7 @@
 
 	// Counts and memory length tracking
 	NSUInteger downloadedRowCount;
-
-	IMP isConnectedPtr;
+    BOOL (*isConnectedPtr)(id, SEL);
 	SEL isConnectedSelector;
 }
 

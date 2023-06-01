@@ -576,9 +576,10 @@
 	NSInteger stringIndex = -1;
 	NSUInteger nextIndex = 0;
 	NSInteger queryLength;
-
-	IMP firstOccOfChar = [self methodForSelector:@selector(firstOccurrenceOfCharacter:afterIndex:skippingBrackets:ignoringQuotedStrings:)];
-	IMP subString = [string methodForSelector:@selector(substringWithRange:)];
+	NSUInteger (*firstOccOfChar)(id, SEL, unichar, NSInteger, BOOL, BOOL);
+	firstOccOfChar = [self methodForSelector:@selector(firstOccurrenceOfCharacter:afterIndex:skippingBrackets:ignoringQuotedStrings:)];
+	NSString * (*subString)(id, SEL, NSRange);
+	subString = [string methodForSelector:@selector(substringWithRange:)];
 
 	// Walk through the string finding the character to split by, and add all strings to the array.
 	while (1) {
@@ -621,7 +622,8 @@
 	NSUInteger nextIndex = 0;
 	NSInteger queryLength;
 
-	IMP firstOccOfChar = [self methodForSelector:@selector(firstOccurrenceOfCharacter:afterIndex:skippingBrackets:ignoringQuotedStrings:)];
+	NSUInteger (*firstOccOfChar)(id, SEL, unichar, NSInteger, BOOL, BOOL);
+	firstOccOfChar = [self methodForSelector:@selector(firstOccurrenceOfCharacter:afterIndex:skippingBrackets:ignoringQuotedStrings:)];
 
 	// Walk through the string finding the character to split by, and add all ranges to the array.
 	while (1) {
@@ -695,10 +697,13 @@
 	lastMatchIsDelimiter = NO;
 
 	// Cache frequently used selectors, avoiding dynamic binding overhead
-	IMP charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
+	unichar (*charAtIndex)(id, SEL, NSUInteger);
+	charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
 	SEL charAtIndexSEL = @selector(_charAtIndex:);
-	IMP endIndex = [self methodForSelector:@selector(endIndexOfStringQuotedByCharacter:startingAtIndex:)];
-	IMP substringWithRange = [self methodForSelector:@selector(substringWithRange:)];
+	NSUInteger (*endIndex)(id, SEL, unichar, NSUInteger);
+	endIndex = [self methodForSelector:@selector(endIndexOfStringQuotedByCharacter:startingAtIndex:)];
+	NSUInteger (*substringWithRange)(id, SEL, NSRange);
+	substringWithRange = [self methodForSelector:@selector(substringWithRange:)];
 
 	// Sanity check inputs
 	if (startIndex < -1) startIndex = -1;
@@ -842,7 +847,8 @@
 - (NSUInteger) endIndexOfStringQuotedByCharacter:(unichar)quoteCharacter startingAtIndex:(NSInteger)startIndex
 {
 	// Cache the charAtIndex selector, avoiding dynamic binding overhead
-	IMP charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
+	unichar (*charAtIndex)(id, SEL, NSInteger);
+	charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
 	SEL charAtIndexSEL = @selector(_charAtIndex:);
 
 	NSInteger stringLength = [string length];
@@ -906,7 +912,8 @@
 	unichar currentCharacter;
 
 	// Cache the charAtIndex selector, avoiding dynamic binding overhead
-	IMP charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
+	unichar (*charAtIndex)(id, SEL, NSInteger);
+	charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
 	SEL charAtIndexSEL = @selector(_charAtIndex:);
 
 	switch (commentType) {
