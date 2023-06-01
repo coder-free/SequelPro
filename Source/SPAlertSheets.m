@@ -60,7 +60,7 @@
 
 	// Ensure execution on the main thread
 	if (![[NSThread currentThread] isMainThread]) {
-		return [[self onMainThread] beginWaitingAlertSheetWithTitle:title
+		[[self onMainThread] beginWaitingAlertSheetWithTitle:title
 		                                              defaultButton:defaultButton
 		                                            alternateButton:alternateButton
 		                                                otherButton:otherButton

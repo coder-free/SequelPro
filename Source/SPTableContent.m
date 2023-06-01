@@ -3457,7 +3457,7 @@ static void *TableContentKVOContext = &TableContentKVOContext;
 	NSRect ruleEditorRect = [[[ruleFilterController view] enclosingScrollView] frame];
 
 	//adjust for the UI elements below the rule editor, but only if the view should not be hidden
-	CGFloat containerRequestedHeight = showFilterRuleEditor ? requestedHeight + ruleEditorRect.origin.y : 0;
+	CGFloat containerRequestedHeight = showFilterRuleEditor ? requestedHeight + 31 : 0;
 
 	//the rule editor can ask for about one-third of the available space before we have it use it's scrollbar
 	CGFloat topContainerGivenHeight = MIN(containerRequestedHeight,(availableHeight / 3));

@@ -1220,7 +1220,10 @@
 	if ([[PSMTabDragAssistant sharedDragAssistant] isDragging]) mouseInCell = NO;
 
     //set the cell tracking rect
-    [self removeTrackingRect:[cell cellTrackingTag]];
+	NSInteger oldTag = [cell cellTrackingTag];
+	if (oldTag) {
+		[self removeTrackingRect:oldTag];
+	}
     tag = [self addTrackingRect:cellTrackingRect owner:cell userData:nil assumeInside:mouseInCell];
     [cell setCellTrackingTag:tag];
     [cell setHighlighted:mouseInCell];
