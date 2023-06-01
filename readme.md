@@ -1,3 +1,6 @@
+This repo is clone from https://github.com/sequelpro/sequelpro. Fix some compile error and UI dislocation.
+=======
+
 Sequel Pro <img alt="Logo" src="https://sequelpro.com/images/logo.png" align="right" height="50">
 =======
 
