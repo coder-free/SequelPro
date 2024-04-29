@@ -576,9 +576,11 @@
 	NSInteger stringIndex = -1;
 	NSUInteger nextIndex = 0;
 	NSInteger queryLength;
-	NSUInteger (*firstOccOfChar)(id, SEL, unichar, NSInteger, BOOL, BOOL);
+//	NSUInteger (*firstOccOfChar)(id, SEL, unichar, NSInteger, BOOL, BOOL);
+	IMP firstOccOfChar;
 	firstOccOfChar = [self methodForSelector:@selector(firstOccurrenceOfCharacter:afterIndex:skippingBrackets:ignoringQuotedStrings:)];
-	NSString * (*subString)(id, SEL, NSRange);
+//	NSString * (*subString)(id, SEL, NSRange);
+	IMP subString;
 	subString = [string methodForSelector:@selector(substringWithRange:)];
 
 	// Walk through the string finding the character to split by, and add all strings to the array.
@@ -622,7 +624,8 @@
 	NSUInteger nextIndex = 0;
 	NSInteger queryLength;
 
-	NSUInteger (*firstOccOfChar)(id, SEL, unichar, NSInteger, BOOL, BOOL);
+//	NSUInteger (*firstOccOfChar)(id, SEL, unichar, NSInteger, BOOL, BOOL);
+	IMP firstOccOfChar;
 	firstOccOfChar = [self methodForSelector:@selector(firstOccurrenceOfCharacter:afterIndex:skippingBrackets:ignoringQuotedStrings:)];
 
 	// Walk through the string finding the character to split by, and add all ranges to the array.
@@ -697,12 +700,15 @@
 	lastMatchIsDelimiter = NO;
 
 	// Cache frequently used selectors, avoiding dynamic binding overhead
-	unichar (*charAtIndex)(id, SEL, NSUInteger);
+//	unichar (*charAtIndex)(id, SEL, NSUInteger);
+	IMP charAtIndex;
 	charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
 	SEL charAtIndexSEL = @selector(_charAtIndex:);
-	NSUInteger (*endIndex)(id, SEL, unichar, NSUInteger);
+//	NSUInteger (*endIndex)(id, SEL, unichar, NSUInteger);
+	IMP endIndex;
 	endIndex = [self methodForSelector:@selector(endIndexOfStringQuotedByCharacter:startingAtIndex:)];
-	NSUInteger (*substringWithRange)(id, SEL, NSRange);
+//	NSUInteger (*substringWithRange)(id, SEL, NSRange);
+	IMP substringWithRange;
 	substringWithRange = [self methodForSelector:@selector(substringWithRange:)];
 
 	// Sanity check inputs
@@ -847,7 +853,8 @@
 - (NSUInteger) endIndexOfStringQuotedByCharacter:(unichar)quoteCharacter startingAtIndex:(NSInteger)startIndex
 {
 	// Cache the charAtIndex selector, avoiding dynamic binding overhead
-	unichar (*charAtIndex)(id, SEL, NSInteger);
+//	unichar (*charAtIndex)(id, SEL, NSInteger);
+	IMP charAtIndex;
 	charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
 	SEL charAtIndexSEL = @selector(_charAtIndex:);
 
@@ -912,7 +919,8 @@
 	unichar currentCharacter;
 
 	// Cache the charAtIndex selector, avoiding dynamic binding overhead
-	unichar (*charAtIndex)(id, SEL, NSInteger);
+//	unichar (*charAtIndex)(id, SEL, NSInteger);
+	IMP charAtIndex;
 	charAtIndex = [self methodForSelector:@selector(_charAtIndex:)];
 	SEL charAtIndexSEL = @selector(_charAtIndex:);
 

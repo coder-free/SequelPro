@@ -495,7 +495,8 @@ static SPQueryController *sharedQueryController = nil;
 	}
 
 	// Cache frequently used selector, avoiding dynamic binding overhead
-	BOOL (*messageMatchesFilters)(id, SEL, NSString *);
+//	BOOL (*messageMatchesFilters)(id, SEL, NSString *);
+	IMP messageMatchesFilters;
 	messageMatchesFilters = [self methodForSelector:@selector(_messageMatchesCurrentFilters:)];
 
 	// Loop through all the messages in the full set to determine which should be

@@ -54,12 +54,15 @@
 	NSUInteger      dragSelectionStartLine;
 
 	SEL lineNumberForCharacterIndexSel;
-	NSUInteger (*lineNumberForCharacterIndexIMP)(id, SEL, NSUInteger);
+//	NSUInteger (*lineNumberForCharacterIndexIMP)(id, SEL, NSUInteger);
+	IMP lineNumberForCharacterIndexIMP;
 	SEL lineRangeForRangeSel;
 	SEL numberWithUnsignedIntegerSel;
-	NSNumber * (*numberWithUnsignedIntegerIMP)(id, SEL, NSUInteger);
+//	NSNumber * (*numberWithUnsignedIntegerIMP)(id, SEL, NSUInteger);
+	IMP numberWithUnsignedIntegerIMP;
 	SEL addObjectSel;
-	void (*addObjectIMP)(id, SEL, NSNumber *);
+//	void (*addObjectIMP)(id, SEL, NSNumber *);
+	IMP addObjectIMP;
 	SEL rangeOfLineSel;
 	Class numberClass;
 

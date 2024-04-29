@@ -1102,7 +1102,9 @@
             [currentCell setFrame:[_controller cellFrameAtIndex:i]];
             
             if (![currentCell isInOverflowMenu]) {
+				NSLog(@"_setupTrackingRectsForCell  1");
                 [self _setupTrackingRectsForCell:currentCell];
+				NSLog(@"_setupTrackingRectsForCell  1 ==");
             }
         }
         
@@ -1196,8 +1198,10 @@
             if ([currentCell isInOverflowMenu]) {
                 break;
             }
-            
+			
+			NSLog(@"_setupTrackingRectsForCell  2");
             [self _setupTrackingRectsForCell:currentCell];
+			NSLog(@"_setupTrackingRectsForCell  2 ==");
         }
     }
     
@@ -1220,7 +1224,7 @@
 	if ([[PSMTabDragAssistant sharedDragAssistant] isDragging]) mouseInCell = NO;
 
     //set the cell tracking rect
-	NSInteger oldTag = [cell cellTrackingTag];
+	NSTrackingRectTag oldTag = [cell cellTrackingTag];
 	if (oldTag) {
 		[self removeTrackingRect:oldTag];
 	}
@@ -1233,7 +1237,11 @@
         BOOL mouseInCloseRect = NSMouseInRect(mousePoint, closeRect, [self isFlipped]);
         
         //set the close button tracking rect
-        [self removeTrackingRect:[cell closeButtonTrackingTag]];
+//		[self removeTrackingRect:[cell closeButtonTrackingTag]];
+		NSTrackingRectTag oldCloseButtonTag = [cell closeButtonTrackingTag];
+		if (oldCloseButtonTag) {
+			[self removeTrackingRect:oldCloseButtonTag];
+		}
         tag = [self addTrackingRect:closeRect owner:cell userData:nil assumeInside:mouseInCloseRect];
         [cell setCloseButtonTrackingTag:tag];
         
